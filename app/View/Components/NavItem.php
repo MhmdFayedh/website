@@ -6,14 +6,11 @@ use Illuminate\View\Component;
 
 class NavItem extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __construct(
+        public string $link = '#',
+        public string $name = 'غير معرف'
+        )
     {
-        //
     }
 
     /**

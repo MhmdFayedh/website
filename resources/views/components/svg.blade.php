@@ -1,8 +1,8 @@
 @props(
 [
     'name' => '',
-    'width' => '50',
-    'height' => '50',
+    'width' => 50,
+    'height' => 50,
 ]
 )
 
@@ -10,7 +10,7 @@
     <svg
     width="{{ $width }}px"
     height="{{ $height }}px"
-    viewBox="0 0 text-sm48 48"
+    viewBox="0 0 48 48"
     id="Layer_2"
     data-name="Layer 2"
     xmlns="http://www.w3.org/2000/svg"
