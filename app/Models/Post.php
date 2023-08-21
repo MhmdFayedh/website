@@ -16,14 +16,13 @@ class Post extends Model
         'body',
         'thumbnail', 
         'slug', 
-        'thumbnail', 
         'active', 
         'publish_at', 
         'user_id'
     ];
 
     protected $casts = [
-        'publush_at' => 'datetime'
+        'publish_at' => 'datetime'
     ];
 
     public function user(): BelongsTo
