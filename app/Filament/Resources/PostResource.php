@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PostResource\Pages;
-use App\Filament\Resources\PostResource\RelationManagers;
-use App\Models\Post;
 use Filament\Forms;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use App\Models\Post;
 use Filament\Tables;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\PostResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PostResource\RelationManagers;
+
 
 class PostResource extends Resource
 {
@@ -31,25 +32,28 @@ class PostResource extends Resource
                 Forms\Components\Grid::make(2)->schema([
                         Forms\Components\TextInput::make('name')
                         ->required()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->name('الاسم'),
                         Forms\Components\TextInput::make('slug')
                         ->required()
                         ->maxLength(255),
                     ]),
-                Forms\Components\Textarea::make('body')
-                    ->required()
-                    ->maxLength(65535),
-                
-                Forms\Components\FileUpload::make('thumbnail'),
+                Forms\Components\RichEditor::make('body')
+                ->required()
+                ->maxLength(65535)
+                ->name('المقالة'),
+                Forms\Components\FileUpload::make('thumbnail')->name('الصورة'),
                 Forms\Components\Toggle::make('active')
-                    ->required(),
+                    ->required()
+                    ->name('فعال'),
                 Forms\Components\DateTimePicker::make('publish_at')
-                    ->required(),
+                    ->required()
+                    ->name('سينٌشر'),
                 Forms\Components\Select::make('category_id')
                     ->multiple()
                     ->relationship('categories', 'name')
+                    ->name('الوسوم'),
                 ])
-            
             ]);
     }
 
@@ -65,7 +69,7 @@ class PostResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('publish_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('user.name'),
+                // Tables\Columns\TextColumn::make('user.name'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 // Tables\Columns\TextColumn::make('updated_at')
