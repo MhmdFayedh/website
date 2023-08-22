@@ -16,7 +16,7 @@ class PostController extends Controller
         ->whereDate('publish_at', '<=', Carbon::now())
         ->orderBy('publish_at', 'desc')
         ->get();
-        return view('posts.index', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
     public function show($id, Request $request)
@@ -41,6 +41,6 @@ class PostController extends Controller
             ]);
         }
 
-        return response(view('posts.show', compact('post')))->withCookie('considered', 'true', 60);
+        return response(view('post.show', compact('post')))->withCookie('considered', 'true', 60);
     }
 }
