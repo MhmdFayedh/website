@@ -9,11 +9,11 @@
         </div>
 
         <div class=" flex gap-3 items-center text-sm">
-            <x-nav-item :link="'/'" :name="'الرئيسية'"/>
-            <x-nav-item :link="'/posts'" :name="'المدونة'"/>
-            <x-nav-item :link="'/#work'" :name="'أعمالي'"/>
-            <x-nav-item :link="'/#about'" :name="'عني'"/>
-            <x-nav-item :link="'/#contact'" :name="'تواصل'" class="bg-[#1A64F5] rounded py-1 px-4"/>
+            <x-nav-item link="/" name="الرئيسية"/>
+            <x-nav-item link="/posts" name="المدونة"/>
+            <x-nav-item link="/#work" name="أعمالي"/>
+            <x-nav-item link="/#about" name="عني"/>
+            <x-nav-item link="/#contact" name="تواصل" class="bg-[#1A64F5] rounded py-1 px-4"/>
         </div>
     </ul>
 </nav>
