@@ -1,14 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap');
-html {
-    scroll-behavior: smooth;
-
-    scroll-padding-top: 5rem;
-}
-
-body {
-    /* font-family: "Almarai"; */
-    direction: rtl;
-}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* , html {
+    scroll-behavior: smooth;
+    direction: rtl;
+    scroll-padding-top: 5rem;
+}
+
+
+.post-body h1 {
+    font-size: 3rem;
+    line-height: 2.5rem;
+}
+.post-body h2 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+}
+
+.post-body h3 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+.post-body ul {
+    list-style-type: circle;
+    padding-right: 2.5rem;
+}
+
+.post-body  pre  {
+    direction: ltr;
+    width: 100%;
+    background-color: #272822;
+    color: #f8f8f2;
+    border-radius: 0.3em;
+    padding: 20px 10px 20px;
+    position: relative;
+}
+
+.post-body a {
+    color: #1A64F5;
+}
+
+.post-body a:hover {
+    color: #3776f3;
+}
+
+.backgroundText {
+    color: #131313;
+    -webkit-text-stroke-width: 5px;
+    -webkit-text-stroke-color: rgb(255, 255, 255);
+}
