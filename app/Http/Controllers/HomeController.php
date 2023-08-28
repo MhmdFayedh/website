@@ -14,7 +14,9 @@ class HomeController extends Controller
 
     {
         $posts = DB::table('posts')->select(['id', 'name', 'thumbnail'])->limit(3)->get();
-        
-        return view('home', compact('posts'));
+        $getFile = DB::table('resumes')->select('file')->latest()->limit(1)->get();
+        $resume = $getFile[0]->file ?? '';
+
+        return view('home', compact('posts', 'resume'));
     }
 }
