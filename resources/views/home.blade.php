@@ -1,79 +1,80 @@
 <x-layout>
     <x-navbar/>
     <main class="text-white mt-10 container mx-auto space-y-80">
-        <section class="relative">
-            <h1 class="text-9xl backgroundText font-bold opacity-5 text-center z-0 pointer-events-none absolute">the lyf so short, the craft so long to lerne</h1>
-            <div class="mt-20 z-50">
-                <div class=" flex flex-col gap-4">
-                    <p class="text-md text-gray-400">انا محمد، مهندس برمجيات</p>
-                    <p class="text-6xl">أستطيع تحويل</p>
-                    <p class="text-6xl">أفكارك لواقع.</p>
+        <section class="relative"> 
+            <div class="flex justify-between items-center">
+                <div class="mt-20 z-50">
+                    <div class=" flex flex-col gap-4">
+                        <h1 class="text-9xl backgroundText font-bold opacity-5 text-center z-0 pointer-events-none absolute">the lyf so short, the craft so long to lerne</h1>
+                        <p class="text-md text-gray-400">انا محمد، مهندس برمجيات</p>
+                        <p class="text-6xl">أستمتع بتحويل</p>
+                        <p class="text-6xl">الافكار لواقع.</p>
+                    </div>
+                    <div  class="my-6 flex items-center gap-4">
+                        <a href="#work" class="text-white bg-[#1A64F5] py-2 px-6 text-xl rounded">أعمالي.</a>
+                        @if($resume)
+                        <a href="{{ asset('storage/'. $resume) }}" class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100" target="_blink">السيرة الذاتية</a>
+                        @endif
+                    </div>
                 </div>
-                <div  class="my-6">
-                    <a href="#work" class="text-white bg-[#1A64F5] py-2 px-6 text-xl rounded">أعمالي.</a>
-                    <a href=""></a>
-                </div>
+                <img 
+                src="{{ Vite::asset('resources/images/simon-lee-J-Fr6LalosU-unsplash-removebg-preview.png') }}"
+                alt=""
+                class="object-cover object-center hover:scale-110 rotate-6 hover:rotate-12 duration-300 ease-in-out w-80"
+                >
             </div>
         </section>
 
         <section class="relative">
-            <x-section-title :id="'blog'">
+            <x-section-title id="blog">
                 التدوينات
             </x-section-title>
 
             <x-card-container>
-                <x-card :src="'https://source.unsplash.com/a-tube-of-toothpaste-sitting-on-top-of-a-table-HUmTboaiTGU'" :span="'12'">
-                    كيف تخلق تزرع قواعد البيانات
-                    <x-card-footer>
-                        <a 
-                        href="/posts"
-                        class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex gap-1">
-                            رؤية التدوينة
-                            <x-svg :name="'post'" :width="'25'" :height="'25'"/>
-                        </a>
-                    </x-card-footer>
-                </x-card>
-
-                <x-card :src="'https://source.unsplash.com/zozRCYU7czY'" :span="'6'">
-                    كيف تخلق تزرع قواعد البيانات
-                    <x-card-footer>
-                        <a 
-                        href="/posts"
-                        class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex gap-1">
-                            رؤية التدوينة
-                            <x-svg :name="'post'" :width="'25'" :height="'25'"/>
-                        </a>
-                    </x-card-footer>
-                </x-card>
-
-                
-                <x-card :src="'https://source.unsplash.com/-SCWZGo99Q4'" :span="'6'">
-                    كيف تخلق تزرع قواعد البيانات
-                    <x-card-footer>
-                        <a 
-                        href="/posts"
-                        class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex gap-1">
-                            رؤية التدوينة
-                            <x-svg :name="'post'" :width="'25'" :height="'25'"/>
-                        </a>
-                    </x-card-footer>
-                </x-card>
+                @foreach ($posts as $post)
+                    @if ($loop->index == 0)
+                        <x-card imgSrc="{{ asset('storage/'.$post->thumbnail) }}" class="col-span-12" >
+                            {{  $post->name }}
+                            <x-card-footer>
+                                <a 
+                                href="{{ route('posts.show', [$post->id]) }}"
+                                class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex gap-1">
+                                    رؤية التدوينة
+                                    <x-svg name="post" width="25" height="25"/>
+                                </a>
+                            </x-card-footer>
+                        </x-card>
+                    @endif
+                    @if ($loop->index > 0)
+                    <x-card imgSrc="{{ asset('storage/'.$post->thumbnail) }}" class="col-span-6">
+                        {{  $post->name }}
+                        <x-card-footer>
+                            <a 
+                            href="{{ route('posts.show', [$post->id]) }}"
+                            class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex gap-1">
+                                رؤية التدوينة
+                                <x-svg name="post" width="25" height="25"/>
+                            </a>
+                        </x-card-footer>
+                    </x-card>
+                    @endif
+                @endforeach
             </x-card-container>
 
             <div class=" flex items-center gap-1">
-                <a href="#" class=" my-4" >رؤية المزيد</a>
-                <x-svg :name="'open-page'" :width="'20'" :height="'20'"/>
+                <a href="{{ route('posts.index') }}" class=" my-4" >رؤية المزيد</a>
+                <x-svg name="open-page" width="20" height="20"/>
             </div>
         </section>
 
         <section class="relative">
-            <x-section-title :id="'work'">
+            <x-section-title id="work">
                 أعمالي
             </x-section-title>
 
             <x-card-container>
-                <x-card :src="'https://source.unsplash.com/a-tube-of-toothpaste-sitting-on-top-of-a-table-HUmTboaiTGU'" :span="'12'">
-                    كيف تخلق تزرع قواعد البيانات
+                <x-card imgSrc="https://source.unsplash.com/IgUR1iX0mqM" class="col-span-6">
+                    Volunteering Opportunities Requests
                     <x-card-footer>
                         <div class=" flex items-center gap-4">
                             <a 
@@ -86,14 +87,14 @@
                             href="/posts"
                             class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex items-center gap-1">
                             الاكواد
-                            <x-svg :name="'code'" :width="'25'" :height="'25'"/> 
+                            <x-svg name="code" width="25" height="25"/> 
                             </a>
                         </div>
                     </x-card-footer>
                 </x-card>
 
-                <x-card :src="'https://source.unsplash.com/zozRCYU7czY'" :span="'6'">
-                    كيف تخلق تزرع قواعد البيانات
+                <x-card imgSrc="https://source.unsplash.com/LCcFI_26diA" class="col-span-6">
+                    Basmati Ebtekar landing page
                     <x-card-footer>
                         <div class=" flex items-center gap-4">
                             <a 
@@ -106,28 +107,7 @@
                             href="/posts"
                             class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex items-center gap-1">
                             الاكواد
-                            <x-svg :name="'code'" :width="'25'" :height="'25'"/> 
-                            </a>
-                        </div>
-                    </x-card-footer>
-                </x-card>
-
-                
-                <x-card :src="'https://source.unsplash.com/-SCWZGo99Q4'" :span="'6'">
-                    كيف تخلق تزرع قواعد البيانات
-                    <x-card-footer>
-                        <div class=" flex items-center gap-4">
-                            <a 
-                            href="/posts"
-                            class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex items-center gap-1">
-                            رؤيةالمشروع
-                            <x-svg :name="'work'" :width="'20'" :height="'20'"/> 
-                            </a>
-                            <a 
-                            href="/posts"
-                            class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex items-center gap-1">
-                            الاكواد
-                            <x-svg :name="'code'" :width="'25'" :height="'25'"/> 
+                            <x-svg name="code" width="25" height="25"/> 
                             </a>
                         </div>
                     </x-card-footer>
@@ -135,12 +115,12 @@
             </x-card-container>
             <div class=" flex items-center gap-1">
                 <a href="#" class=" my-4" >رؤية المزيد</a>
-                <x-svg :name="'open-page'" :width="'20'" :height="'20'"/>
+                <x-svg name="open-page" width="20" height="20"/>
             </div>
         </section>
 
         <section class="relative">
-            <x-section-title :id="'about'">
+            <x-section-title id="about">
                 عني
             </x-section-title>
 
@@ -148,9 +128,10 @@
                 <div class=" leading-10 space-y-14">
                     <div>
                         <p class=" text-sm text-gray-400">اسمي محمد</p>
-                        <p>مهندس برمجيات شغوف بتطوير وتصميم تطبيقات الويب التي تحل مشاكل العالم الحقيقية</p>
-                        <p>كمتدرب حصلت على خبرة تطوير وصيانة الانظمة في التجمع الصحي لدى حائل حاصل على شهادة علوم الحاسب من جامعة حائل</p>
-                        <p>متحمس لتعلم التقنيات الجديدة وطرق أفضل لحل مشاكل تطوير الويب، أسعى من خلالها تحسين مهاراتي في الحرفة</p>    
+                        <p>مهندس برمجيات شغوف بتطوير وتصميم تطبيقات الويب التي تحل مشاكل الحقيقية</p>
+                        <p>كمتدرب حصلت على خبرة تطوير وصيانة الانظمة في التجمع الصحي لدى حائل </p>
+                        <p>حاصل على درجة البكالوريوس في العلوم التطبيقية، تخصص علوم الحاسب من جامعة حائل</p>    
+                        <p> متحمس لتعلم التقنيات الجديدة وطرق أفضل لحل مشاكل تطوير الويب، أسعى من خلالها تحسين مهاراتي في الحرفة</p>    
                     </div>
 
                     <div class="flex gap-2 justify-center items-center">
@@ -187,14 +168,14 @@
                     
                 </div>
                 
-                <div>
-                    <img src="https://picsum.photos/id/300/300" class=" rounded" alt="personal image of myself">
+                <div class="">
+                    <img src="{{ Vite::asset('resources/images/personal_img.jpg') }}" class=" rounded max-h-80 aspect-square object-cover object-center" alt="personal image of myself">
                 </div>
             </div>
         </section>
 
         <section class="relative">
-            <x-section-title :id="'contact'">
+            <x-section-title id="contact">
                 تواصل
             </x-section-title>
 
