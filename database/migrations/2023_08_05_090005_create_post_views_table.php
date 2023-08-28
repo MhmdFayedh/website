@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('ip_address');
             $table->string('user_agent');
             $table->string('user_host');
-            $table->foreignId('post_id')->constrained();
+            $table->foreignId('post_id')
+            ->references('id')
+            ->on('posts')
+            ->cascadeOnDelete();
             $table->timestamps();
         });
     }
