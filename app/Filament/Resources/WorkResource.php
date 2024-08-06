@@ -36,6 +36,14 @@ class WorkResource extends Resource
                     Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
+
+                    Forms\Components\TextInput::make('live_url')
+                    ->maxLength(255)
+                    ->name('رابط_العمل'),
+
+                    Forms\Components\TextInput::make('source_code')
+                    ->maxLength(255)
+                    ->name('رابط_الكود'),
                 ]),
             Forms\Components\RichEditor::make('body')
             ->required()
@@ -62,6 +70,8 @@ class WorkResource extends Resource
             // Tables\Columns\TextColumn::make('thumbnail'),
             Tables\Columns\IconColumn::make('active')
                 ->boolean(),
+            Tables\Columns\TextColumn::make('source_code'),
+            Tables\Columns\TextColumn::make('live_url'),
             Tables\Columns\TextColumn::make('publish_at')
                 ->dateTime(),
             // Tables\Columns\TextColumn::make('user.name'),

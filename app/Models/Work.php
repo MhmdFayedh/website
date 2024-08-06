@@ -17,7 +17,9 @@ class Work extends Model
         'slug', 
         'active', 
         'publish_at', 
-        'user_id'
+        'user_id',
+        'source_code',
+        'live_url'
     ];
 
     protected $casts = [

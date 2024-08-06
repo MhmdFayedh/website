@@ -33,7 +33,7 @@
             <x-card-container>
                 @foreach ($posts as $post)
                     @if ($loop->index == 0)
-                        <x-card imgSrc="{{ asset('storage/'.$post->thumbnail) }}" class="col-span-12" >
+                        <x-card imgSrc="{{ asset('storage/'. $post->thumbnail) }}" class="col-span-12" >
                             {{  $post->name }}
                             <x-card-footer>
                                 <a 
@@ -73,48 +73,37 @@
             </x-section-title>
 
             <x-card-container>
-                <x-card imgSrc="https://source.unsplash.com/IgUR1iX0mqM" class="col-span-6">
-                    Volunteering Opportunities Requests
-                    <x-card-footer>
-                        <div class=" flex items-center gap-4">
-                            <a 
-                            href="/posts"
-                            class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex items-center gap-1">
-                            رؤيةالمشروع
-                            <x-svg :name="'work'" :width="'20'" :height="'20'"/> 
-                            </a>
-                            <a 
-                            href="/posts"
-                            class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex items-center gap-1">
-                            الاكواد
-                            <x-svg name="code" width="25" height="25"/> 
-                            </a>
-                        </div>
-                    </x-card-footer>
-                </x-card>
+                @foreach ($works as $work)
+                    <x-card imgSrc="{{ asset('storage/'. $work->thumbnail) }}" class="col-span-6">
+                        {{ $work->name }}
+                        <x-card-footer>
+                            <div class=" flex items-center gap-4">
+                                <a 
+                                href="{{ $work->live_url ? $work->live_url : '#' }}"
+                                class="border-transparent border-b-2 duration-100 flex items-center gap-1 {{ empty($work->live_url) ?  'disabled-link text-gray-500 cursor-not-allowed pointer-events-none"' : 'text-white hover:border-b-[#1A64F5] '}}">
+                                رؤية المشروع
+                                <x-svg :name="'work'" :width="'20'" :height="'20'"/> 
+                                </a>
+                                <a 
+                                href="{{ $work->source_code ? $work->source_code: '#'  }}"
+                                class=" border-transparent border-b-2 duration-100 flex items-center gap-1  {{ empty($work->source_code) ?  'disabled-link text-gray-500 cursor-not-allowed pointer-events-none"' : 'text-white hover:border-b-[#1A64F5] '}}">
+                                الاكواد
+                                <x-svg name="code" width="25" height="25"/> 
+                                </a>
 
-                <x-card imgSrc="https://source.unsplash.com/LCcFI_26diA" class="col-span-6">
-                    Basmati Ebtekar landing page
-                    <x-card-footer>
-                        <div class=" flex items-center gap-4">
-                            <a 
-                            href="/posts"
-                            class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex items-center gap-1">
-                            رؤيةالمشروع
-                            <x-svg :name="'work'" :width="'20'" :height="'20'"/> 
-                            </a>
-                            <a 
-                            href="/posts"
-                            class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex items-center gap-1">
-                            الاكواد
-                            <x-svg name="code" width="25" height="25"/> 
-                            </a>
-                        </div>
-                    </x-card-footer>
-                </x-card>
+                                <a 
+                                href="{{ route('works.show', [$work->id]) }}"
+                                class="text-white border-transparent border-b-2 hover:border-b-[#1A64F5] duration-100 flex gap-1">
+                                    تفاصيل المشروع
+                                    <x-svg name="post" width="25" height="25"/>
+                                </a>
+                            </div>
+                        </x-card-footer>
+                    </x-card>
+                @endforeach
             </x-card-container>
             <div class=" flex items-center gap-1">
-                <a href="#" class=" my-4" >رؤية المزيد</a>
+                <a href="/works" class=" my-4" >رؤية المزيد</a>
                 <x-svg name="open-page" width="20" height="20"/>
             </div>
         </section>
@@ -180,9 +169,10 @@
             </x-section-title>
 
             <form 
-            {{-- action="/contact" --}}
+            action="/contact"
             method="POST"
             >
+            @csrf
                 <div class="text-center mt-10 mb-6">
                     <div class="mb-6 w-full">
                         <label class="block mb-2 uppercase font-bold text-md" for="subject">
@@ -190,7 +180,7 @@
                         </label>
                         <input class="border border-transparent rounded-md bg-[#141923] focus:bg-[#0b141d] py-2 px-2 w-1/2 caret-[#fff] accent-[#fff]" type="text" name="subject" id="subject" required>
                         @error('subject')
-                            <p class="text-red-500 text-sm">{{ $message }}</P>
+                            <p class="text-red-500 text-sm">{{ $subject }}</P>
                         @enderror
                     </div>
     
@@ -200,7 +190,7 @@
                         </label>
                         <input class="border border-transparent rounded-md bg-[#141923] focus:bg-[#0b141d] py-2 px-2 w-1/2 caret-[#fff] accent-[#fff]" type="text" name="email" id="email" required>
                         @error('email')
-                            <p class="text-red-500 text-sm">{{ $message }}</P>
+                            <p class="text-red-500 text-sm">{{ $email }}</P>
                         @enderror
                     </div>
     
